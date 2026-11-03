@@ -204,9 +204,9 @@ class BinaryTree():
         return 1 (for the current node) plus the max of the left and right _heights calculated above
         '''
         if node is None:
-            return 0
-        right = 0
-        left = 0
+            return -1
+        right = -1
+        left = -1
         count = 0
         count += 1
         if node.left:
