@@ -20,6 +20,9 @@ class BST(BinaryTree):
         then each element of xs needs to be inserted into the BST.
         '''
         super().__init__()
+        if xs is not None:
+            for x in xs:
+                self.insert(x)
 
     def __repr__(self):
         '''
@@ -84,6 +87,20 @@ class BST(BinaryTree):
         HINT:
         Create a staticmethod helper function following the pattern of _is_bst_satisfied.
         '''
+        if self.root:
+            BST._insert(value, self.root)
+        else:
+            self.root = Node(value)
+
+    @staticmethod
+    def _insert(node, value):
+        if node is None:
+            return Node(value)
+        if value < node.value:
+            node.left = insert(node.left, value)
+        elif value >= node.value:
+            node.right = insert(node.right, value)
+        return value
 
     def insert_list(self, xs):
         '''
@@ -96,6 +113,8 @@ class BST(BinaryTree):
         Repeatedly call the insert method.
         You cannot get this method to work correctly until you have gotten insert to work correctly.
         '''
+        for x in xs:
+            self.insert(x)
 
     def __contains__(self, value):
         '''
@@ -110,6 +129,7 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        return BST._find(value, self.root)
 
     @staticmethod
     def _find(value, node):
@@ -117,6 +137,14 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        if node is None:
+            return False
+        if value == node.value:
+            return True
+        elif value < node.value:
+            return BST._find(value, node.left)
+        else:
+            return BST._find(value, node.right)
 
     def find_smallest(self):
         '''
@@ -148,6 +176,18 @@ class BST(BinaryTree):
         HINT:
         Follow the pattern of the _find_smallest function.
         '''
+        if self.root is None:
+            raise ValueError('nothing in tree')
+        else:
+            return BST._find_largest(self.root)
+
+    @staticmethod
+    def_find_largest(node):
+        assert node is not None:
+            if node.right is None:
+                return node.value:
+            else:
+                return BST._find_largest(node.right)
 
     def remove(self, value):
         '''
@@ -163,6 +203,7 @@ class BST(BinaryTree):
         HINT:
         Use a recursive helper function.
         '''
+        self.root = BST._remove(value, self.root)
 
     def remove_list(self, xs):
         '''
@@ -174,3 +215,23 @@ class BST(BinaryTree):
         HINT:
         See the insert_list function.
         '''
+        for x in xs:
+            self.remove(x)
+
+    @staticmethod
+    def _remove(value, node):
+        if node is None:
+            return None
+        if value < node.value:
+            node.left = BST._remove(value, node.left)
+        elif value > node.value:
+            node.right = BST._remove(value, node.right)
+        else:
+            if node.leftis None
+                return node.right
+            if node.right is None:
+                return node.left
+            replacement = BST._find_smallest(node.right)
+            node.value = replacement
+            node.right = bST._remove(replacement, node.right)
+        return node
