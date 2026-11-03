@@ -210,7 +210,7 @@ class BST(BinaryTree):
         Implement this function.
 
         HINT:
-        See the insert_list function.
+        See the insert_list function
         '''
         for x in xs:
             self.remove(x)
