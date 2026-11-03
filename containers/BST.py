@@ -97,9 +97,9 @@ class BST(BinaryTree):
         if node is None:
             return Node(value)
         if value < node.value:
-            node.left = insert(node.left, value)
+            node.left = _insert(node.left, value)
         elif value >= node.value:
-            node.right = insert(node.right, value)
+            node.right = _insert(node.right, value)
         return value
 
     def insert_list(self, xs):
@@ -233,5 +233,5 @@ class BST(BinaryTree):
                 return node.left
             replacement = BST._find_smallest(node.right)
             node.value = replacement
-            node.right = bST._remove(replacement, node.right)
+            node.right = BST._remove(replacement, node.right)
         return node
