@@ -97,9 +97,9 @@ class BST(BinaryTree):
         if node is None:
             return Node(value)
         if value < node.value:
-            node.left = BST._insert(node.left, value)
-        elif value >= node.value:
-            node.right = BST._insert(node.right, value)
+            node.left = BST._insert(value, node.left)
+        elif value > node.value:
+            node.right = BST._insert(value, node.right)
         return value
 
     def insert_list(self, xs):
