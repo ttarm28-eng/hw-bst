@@ -183,11 +183,11 @@ class BST(BinaryTree):
 
     @staticmethod
     def _find_largest(node):
-        assert node is not None:
-            if node.right is None:
-                return node.value:
-            else:
-                return BST._find_largest(node.right)
+        assert node is not None
+        if node.right is None:
+            return node.value
+        else:
+            return BST._find_largest(node.right)
 
     def remove(self, value):
         '''
