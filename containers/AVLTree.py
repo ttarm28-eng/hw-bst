@@ -138,11 +138,9 @@ class AVLTree(BST):
         if bf > 1:
             if AVLTree._balance_factor(node.left) < 0:
                 node.left = AVLTree._left_rotate(node.left)
-            else:
-                node = AVLTree._right_rotate(node)
+            node = AVLTree._right_rotate(node)
         elif bf < -1:
             if AVLTree._balance_factor(node.right) > 0:
                 node.right = AVLTree._right_rotate(node.right)
-            else:
-                node = AVLTree._left_rotate(node)
+            node = AVLTree._left_rotate(node)
         return node
