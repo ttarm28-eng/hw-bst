@@ -70,7 +70,7 @@ class AVLTree(BST):
         '''
         old = node.value
         right = node.right
-        new_left = Node(old_value)
+        new_left = Node(old)
         new_left.left = node.left
         new_left.right = right.left
         node.value = right.value
@@ -91,7 +91,7 @@ class AVLTree(BST):
         '''
         old = node.value
         left = node.left
-        new_right = Node(old_value)
+        new_right = Node(old)
         new_right.right = node.right
         node.value = left.value
         node.right = new_right
