@@ -57,7 +57,7 @@ class Heap():
         if self.root:
             return Heap._is_heap_satisfied(self.root)
         return True
-
+g
     @staticmethod
     def _is_heap_satisfied(node):
         '''
@@ -91,6 +91,23 @@ class Heap():
         Create a @staticmethod helper function,
         following the same pattern used in the BST and AVLTree insert functions.
         '''
+        self.size += 1
+        path = bin(self.size)[3:]
+        self.root = Heap._insert(value, self.root, path)
+
+    @staticmethod
+    def _insert(value, node, path):
+        if node is None:
+            return Node(value)
+        if path[0] == '0':
+            node.left = Heap._insert(value, node.left, path[1:])
+            child = node.left
+        else:
+            node.right = Heap._insert(value, node.right, path[1:])
+            child = node.right
+        if node.value > child.value:
+            node.value, child.value = child.value, node.value
+        return node
 
     def insert_list(self, xs):
         '''
@@ -100,6 +117,8 @@ class Heap():
         FIXME:
         Implement this function.
         '''
+        for x in xs:
+            self.insert(x)
 
     def find_smallest(self):
         '''
@@ -108,6 +127,9 @@ class Heap():
         FIXME:
         Implement this function.
         '''
+        if self.root is None:
+            return None
+        return self.root.value
 
     def remove_min(self):
         '''
@@ -128,3 +150,42 @@ class Heap():
         It's possible to do it with only a single helper (or no helper at all),
         but I personally found dividing up the code into two made the most sense.
         '''
+        if self.root is None:
+            return
+        if self.size == 1:
+            self.root = None
+            self.size = 0
+            return
+        path = bin(self.size)[3:]
+        last_value = Heap._remove_bottom_right(self.root, path)
+        self.size -= 1
+        self.root.value = last_value
+        Heap._trickle(self.root)
+
+    @staticmethod
+    def _remove_bottom_right(node, path):
+        if len(path) == 1:
+            if path == '0':
+                value = node.left.value
+                node.left = None
+            else:
+                value = node.right.value
+                node.right = None
+            return value
+        if path[0] == '0':
+            return Heap._remove_bottom_right(node.left, path[1:])
+        else:
+            return Heap._remove_bottom_right(node.right, path[1:])
+
+    @staticmethod
+    def _trickle(node):
+        if node is None:
+            return
+        smallest = node
+        if node.left and node.left.value < smallest.value:
+            smallest = node.left
+        if node.right and node.right.value < smallest.value:
+            smallest = node.right
+        if smallest is not node:
+            node.value, smallest.value = smallest.value, node. value
+            Heap._trickle(smallest)
