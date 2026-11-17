@@ -57,7 +57,7 @@ class Heap():
         if self.root:
             return Heap._is_heap_satisfied(self.root)
         return True
-g
+
     @staticmethod
     def _is_heap_satisfied(node):
         '''
