@@ -24,6 +24,11 @@ class Heap():
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the Heap.
         '''
+        super().__init__()
+        self.size = 0
+        if xs is not None:
+            for x in xs:
+                self.insert(x)
 
     def __repr__(self):
         '''
@@ -59,6 +64,13 @@ class Heap():
         FIXME:
         Implement this method.
         '''
+        if node is None:
+            return True
+        if node.left and node.left.value < node.value:
+            return False
+        if node.right and node.right.value < node.value:
+            return False
+        return Heap._is_heap_satisfied(node.left) and Heap._is_heap_satisfied(node.right)
 
     def insert(self, value):
         '''
@@ -83,6 +95,7 @@ class Heap():
     def insert_list(self, xs):
         '''
         Given a list xs, insert each element of xs into self.
+
 
         FIXME:
         Implement this function.
